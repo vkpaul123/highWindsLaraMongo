@@ -56,7 +56,7 @@ class WindturbineController extends Controller
                 'userID' => Auth::user()->id,
                 'manufacturer' => $request->manufacturer,
                 'modelno' => $request->modelno,
-                'ratedpower' => $request->ratedpower,
+                'ratedpower' => (int)$request->ratedpower,
             ],
             'addressInfo' => [
                 'addresstext' => $request->addresstext,
@@ -67,6 +67,9 @@ class WindturbineController extends Controller
                 'city' => $request->city,
                 'state' => $request->state,
                 'pincode' => $request->pincode,
+            ],
+            'ratedpower' => [
+                'ratedpower' => $request->ratedpower,
             ],
         ]);
 
@@ -131,7 +134,7 @@ class WindturbineController extends Controller
             'userID' => Auth::user()->id,
             'manufacturer' => $request->manufacturer,
             'modelno' => $request->modelno,
-            'ratedpower' => $request->ratedpower,
+            'ratedpower' => (int)$request->ratedpower,
         ];
 
         $windturbine->addressInfo = [
@@ -143,6 +146,10 @@ class WindturbineController extends Controller
             'city' => $request->city,
             'state' => $request->state,
             'pincode' => $request->pincode,
+        ];
+
+        $windturbine->ratedpower = [
+            'ratedpower' => $request->ratedpower,
         ];
 
         $windturbine->save();

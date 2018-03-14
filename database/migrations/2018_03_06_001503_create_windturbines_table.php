@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use Jenssegers\Mongodb\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateWindturbinesTable extends Migration
@@ -13,15 +13,17 @@ class CreateWindturbinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('windturbines', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('windturbines', function (Blueprint $collection) {
+            $collection->increments('id');
 
-            $table->string('userID');
-            $table->string('generalInfo');
-            $table->string('addressInfo');
-            $table->string('logs');
+            $collection->string('userID');
+            $collection->string('generalInfo');
+            $collection->string('addressInfo');
+            $collection->string('logs');
 
-            $table->timestamps();
+            $collection->index('generalInfo');
+
+            $collection->timestamps();
         });
     }
 

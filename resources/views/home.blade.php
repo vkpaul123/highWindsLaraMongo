@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageSpecificHeadContent')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap.min.css" integrity="sha256-PbaYLBab86/uCEz3diunGMEYvjah3uDFIiID+jAtIfw=" crossorigin="anonymous" />
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -15,7 +19,7 @@
                     @endif
 
                     <div class="table-responsive">
-                        <table class="table">
+                        <table id="windmillstable" class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Sr No</th>
@@ -31,7 +35,7 @@
                                     $i1 = 1;
                                 @endphp
 
-                                @forelse($windturbines as $windturbine)
+                                @foreach($windturbines as $windturbine)
                                     @if($windturbine->generalInfo['userID'] == Auth::user()->id)
                                     <tr>
                                         <td>
@@ -58,11 +62,8 @@
                                     </tr>
                                         
                                     @endif
-                                @empty
-                                    <tr>
-                                        <td colspan="5">No Data</td>
-                                    </tr>
-                                @endforelse
+                                
+                                @endforeach
 
                                 {{-- <tr>
                                     <td>1</td>
@@ -88,4 +89,25 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('pageSpecificLoadScripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.min.js" integrity="sha256-qcV1wr+bn4NoBtxYqghmy1WIBvxeoe8vQlCowLG+cng=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap.min.js" integrity="sha256-X/58s5WblGMAw9SpDtqnV8dLRNCawsyGwNqnZD0Je/s=" crossorigin="anonymous"></script>
+
+    <script>
+      $(function () {
+        $('#windmillstable').DataTable({
+          'paging'      : true,
+          'lengthChange': true,
+          'searching'   : true,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true,
+          'order' : [3, 'asc'],
+        })
+      })
+    </script>
 @endsection
